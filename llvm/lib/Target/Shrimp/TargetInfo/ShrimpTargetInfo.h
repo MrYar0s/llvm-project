@@ -1,0 +1,12 @@
+#ifndef LLVM_LIB_TARGET_SHRIMP_TARGETINFO_SHRIMPTARGETINFO_H
+#define LLVM_LIB_TARGET_SHRIMP_TARGETINFO_SHRIMPTARGETINFO_H
+
+namespace llvm {
+
+class Target;
+
+Target &getTheShrimpTarget();
+
+} // end namespace llvm
+
+#endif // LLVM_LIB_TARGET_SHRIMP_TARGETINFO_SHRIMPTARGETINFO_H
