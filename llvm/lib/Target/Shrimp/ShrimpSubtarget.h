@@ -1,6 +1,7 @@
 #ifndef LLVM_LIB_TARGET_SHRIMP_SHRIMPSUBTARGET_H
 #define LLVM_LIB_TARGET_SHRIMP_SHRIMPSUBTARGET_H
 
+#include "MCTargetDesc/ShrimpMCTargetDesc.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER

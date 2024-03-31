@@ -1,10 +1,13 @@
 #include "MCTargetDesc/ShrimpInfo.h"
 #include "ShrimpMCTargetDesc.h"
+#include "ShrimpMCAsmInfo.h"
 #include "TargetInfo/ShrimpTargetInfo.h"
+#include "llvm/MC/MCDwarf.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/ErrorHandling.h"
 
 using namespace llvm;
 
@@ -34,9 +37,20 @@ static MCSubtargetInfo *createShrimpMCSubtargetInfo(const Triple &TT,
   return createShrimpMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
 }
 
+static MCAsmInfo *createShrimpMCAsmInfo(const MCRegisterInfo &MRI,
+                                     const Triple &TT,
+                                     const MCTargetOptions &Options) {
+  MCAsmInfo *MAI = new ShrimpELFMCAsmInfo(TT);
+  unsigned SP = MRI.getDwarfRegNum(Shrimp::R1, true);
+  MCCFIInstruction Inst = MCCFIInstruction::cfiDefCfa(nullptr, SP, 0);
+  MAI->addInitialFrameState(Inst);
+  return MAI;
+}
+
 // We need to define this function for linking succeed
 extern "C" void LLVMInitializeShrimpTargetMC() {
 	Target &TheShrimpTarget = getTheShrimpTarget();
+	RegisterMCAsmInfoFn X(TheShrimpTarget, createShrimpMCAsmInfo);
 	// Register the MC register info
 	TargetRegistry::RegisterMCRegInfo(TheShrimpTarget, createShrimpMCRegisterInfo);
 	// Register the MC instruction info.

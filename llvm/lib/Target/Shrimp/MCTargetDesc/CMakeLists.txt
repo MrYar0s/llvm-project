@@ -1,5 +1,6 @@
 add_llvm_component_library(LLVMShrimpDesc
   ShrimpMCTargetDesc.cpp
+  ShrimpMCAsmInfo.cpp
 
   LINK_COMPONENTS
   MC
