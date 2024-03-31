@@ -1,4 +1,9 @@
 include "llvm/Target/Target.td"
 include "ShrimpRegisterInfo.td"
 
-def Shrimp : Target;
+include "ShrimpInstrInfo.td"
+
+def ShrimpInstrInfo : InstrInfo;
+def Shrimp : Target {
+  let InstructionSet = ShrimpInstrInfo;
+}
