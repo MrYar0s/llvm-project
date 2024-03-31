@@ -4,6 +4,7 @@ set(LLVM_TARGET_DEFINITIONS Shrimp.td)
 
 tablegen(LLVM ShrimpGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM ShrimpGenInstrInfo.inc -gen-instr-info)
+tablegen(LLVM ShrimpGenSubtargetInfo.inc -gen-subtarget)
 
 add_public_tablegen_target(ShrimpCommonTableGen)
 
@@ -11,6 +12,7 @@ add_llvm_target(ShrimpCodeGen
   ShrimpTargetMachine.cpp
   ShrimpRegisterInfo.cpp
   ShrimpInstrInfo.cpp
+  ShrimpSubtarget.cpp
 
   LINK_COMPONENTS
   CodeGen
